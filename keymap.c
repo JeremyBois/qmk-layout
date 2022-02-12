@@ -82,10 +82,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *          `--------------------------------------'           '------''------------------------------'
      */
     [_QWERTY] = LAYOUT(
-      KC_ESC,   KC_1,   KC_2, KC_3,     KC_4,    KC_5,                  KC_6,  KC_7,  KC_8, KC_9,   KC_0,     KC_DEL,
-      KC_ESC,   KC_Q,   KC_W, KC_E, KC_R,    KC_T,                  KC_Y,  KC_U,  KC_I, KC_O,   KC_P,     KC_DEL,
-      KC_TAB,   KC_A,   KC_S, KC_D,     KC_F,    KC_G,                  KC_H,  KC_J,  KC_K, KC_L,   KC_SCLN,  KC_BSPC,
-      KC_LCTL,  KC_Z,   KC_X, KC_C, KC_V,    KC_B, KC_MUTE,     XXXXXXX, KC_N, KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_RCTL,
+      KC_ESC,   KC_1, KC_2, KC_3, KC_4, KC_5,                  KC_6,  KC_7,  KC_8, KC_9, KC_0,    KC_DEL,
+      KC_ESC,   KC_Q, KC_W, KC_E, KC_R, KC_T,                  KC_Y,  KC_U,  KC_I, KC_O, KC_P,    KC_DEL,
+      KC_TAB,   KC_A, KC_S, KC_D, KC_F, KC_G,                  KC_H,  KC_J,  KC_K, KC_L, KC_SCLN, KC_BSPC,
+      KC_LCTL,  KC_Z, KC_X, KC_C, KC_V, KC_B, KC_MUTE,     XXXXXXX, KC_N, KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_RCTL,
                KC_LGUI, MHL_NAV, OS_LALT, TO(0), MT(MOD_LSFT, KC_SPC),
                                                         MT(MOD_LSFT, KC_ENT),  OSL_SYM, OS_LCTL, MHL_NUM, KC_RALT
     ),
@@ -201,7 +201,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_SYM] = LAYOUT(
       KC_F11,  KC_F1,   KC_F2,  KC_F3,   KC_F4,  KC_F5,                 KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10, KC_F12,
       _______, KC_EXLM, KC_AT,  KC_HASH, KC_DLR, KC_PERC,               KC_CIRC, KC_AMPR, KC_ASTR, KC_SCLN, KC_COLN, _______,
-      _______, C_GRV, KC_MINS, KC_PLUS, KC_LEAD, C_QUOT,                KC_LBRC, KC_LCBR, KC_LPRN, KC_LT, KC_PIPE, _______,
+      _______, C_GRV, KC_MINS, KC_PLUS, C_CHORD, C_QUOT,                KC_LBRC, KC_LCBR, KC_LPRN, KC_LT, KC_PIPE, _______,
       KC_CAPS, C_TILD, KC_UNDS, KC_EQL, KC_BSLS, C_DQUOT, _______,   _______, KC_RBRC, KC_RCBR, KC_RPRN, KC_GT, KC_QUES, TO(_ADJUST),
                 _______, _______, _______, _______, KC_BSPC,
                                                         KC_DEL, _______, _______, _______, _______
@@ -322,6 +322,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     }
 
 #endif
+// clang-format on
 
 //
 // ***
@@ -342,7 +343,7 @@ oneshot_state os_lalt_state = os_up_unqueued;
 oneshot_state os_lsft_state = os_up_unqueued;
 
 // Custom layer switchers
-oneshot_state  osl_symbol_state = os_up_unqueued;
+oneshot_state osl_symbol_state = os_up_unqueued;
 // oneshot_state  osl_numpad_state = os_up_unqueued;
 movehold_state mhl_nav_state    = mh_cleared;
 movehold_state mhl_numpad_state = mh_cleared;
@@ -378,6 +379,11 @@ bool is_oneshot_ignored_key(uint16_t keycode) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
+    // Process leader key sequences
+    if (!process_leader(keycode, record)) {
+        return false;
+    }
+
     // Swapper on one key (no timer)
     update_swapper(&sw_ctab_active, &old_sw_ctab_active, KC_LCTL, KC_TAB, SW_CTAB, keycode, record);
     update_swapper(&sw_atab_active, &old_sw_atab_active, KC_LALT, KC_TAB, SW_ATAB, keycode, record);
@@ -402,6 +408,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 
     // Custom keycodes
     switch (keycode) {
+        case C_CHORD:
+            if (record->event.pressed) {
+                start_leading();
+            }
+            return false;
         case C_GRV:
             if (record->event.pressed) {
                 // Handle dead key to print ` or ~
@@ -441,43 +452,39 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 //
 // Leader
 //
-#ifdef LEADER_ENABLE
-// https://thomasbaart.nl/2018/12/20/qmk-basics-leader-key/
-LEADER_EXTERNS();
-
-void matrix_scan_user(void) {
-    LEADER_DICTIONARY() {
-        leading = false;
-        leader_end();
-
-        SEQ_ONE_KEY(KC_W) {
+void* leader_start_func(uint16_t keycode) {
+    switch (keycode) {
+        case KC_W:
             // é
             tap_code16(ALGR(KC_E));
-        }
-        SEQ_ONE_KEY(KC_E) {
+            break;
+        case KC_E:
             // è
             tap_key_with_mods(KC_GRV, 0U);
             tap_code16(KC_E);
-        }
-        SEQ_ONE_KEY(KC_U) {
+            break;
+        case KC_U:
             // ù
             tap_key_with_mods(KC_GRV, 0U);
             tap_code16(KC_U);
-        }
-        SEQ_ONE_KEY(KC_A) {
+            break;
+        case KC_A:
             // à
             tap_key_with_mods(KC_GRV, 0U);
             tap_code16(KC_A);
-        }
-        SEQ_ONE_KEY(KC_R) {
+            break;
+        case KC_R:
             // ë
             tap_code16(S(KC_QUOT));
             tap_code16(KC_E);
-        }
-        SEQ_ONE_KEY(KC_C) {
+            break;
+        case KC_C:
             // ç
             tap_code16(ALGR(KC_COMM));
-        }
+            break;
+        default:
+            return NULL;
     }
+
+    return NULL;
 }
-#endif

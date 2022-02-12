@@ -9,6 +9,7 @@ Features:
   - shift on hold space/enter to tap upper case character
 
 - Leader key sequence to input accentuated character
+  - no timer
   - works on upper and lower character
   - e, u, i, c
 

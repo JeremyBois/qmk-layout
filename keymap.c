@@ -87,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TAB,   KC_A, KC_S, KC_D, KC_F, KC_G,                  KC_H,  KC_J,  KC_K, KC_L, KC_SCLN, KC_BSPC,
       KC_LCTL,  KC_Z, KC_X, KC_C, KC_V, KC_B, KC_MUTE,     XXXXXXX, KC_N, KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_RCTL,
                KC_LGUI, MHL_NAV, OS_LALT, TO(0), MT(MOD_LSFT, KC_SPC),
-                                                        MT(MOD_LSFT, KC_ENT),  OSL_SYM, OS_LCTL, MHL_NUM, KC_RALT
+                                                        MT(MOD_LSFT, KC_ENT),  OSL_SYM, OS_LCTL, OSL_NUM, KC_RALT
     ),
 
     /*
@@ -344,9 +344,9 @@ oneshot_state os_lsft_state = os_up_unqueued;
 
 // Custom layer switchers
 oneshot_state osl_symbol_state = os_up_unqueued;
-// oneshot_state  osl_numpad_state = os_up_unqueued;
+oneshot_state  osl_numpad_state = os_up_unqueued;
 movehold_state mhl_nav_state    = mh_cleared;
-movehold_state mhl_numpad_state = mh_cleared;
+// movehold_state mhl_numpad_state = mh_cleared;
 
 bool is_oneshot_cancel_key(uint16_t keycode) {
     switch (keycode) {
@@ -390,11 +390,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 
     // Custom layer change (no timer)
     update_move_hold_layer(&mhl_nav_state, _NAV, MHL_NAV, keycode, record);
-    update_move_hold_layer(&mhl_numpad_state, _NUM, MHL_NUM, keycode, record);
+    // update_move_hold_layer(&mhl_numpad_state, _NUM, MHL_NUM, keycode, record);
 
     // Custom one shot layer (no timer)
     update_oneshot_layer(&osl_symbol_state, _SYM, OSL_SYM, keycode, record);
-    // update_oneshot_layer(&osl_numpad_state, _NUM, OSL_NUM, keycode, record);
+    update_oneshot_layer(&osl_numpad_state, _NUM, OSL_NUM, keycode, record);
 
     // Custom one shot modifiers (no timer)
     update_oneshot(&os_lalt_state, KC_LALT, OS_LALT, keycode, record);

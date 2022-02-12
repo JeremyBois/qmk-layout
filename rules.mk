@@ -25,8 +25,9 @@ NKRO_ENABLE = no				# 6KRO by default. NKRO works if enabled (+328)
 COMBO_ENABLE = no               # Allow to write combo
 TAP_DANCE_ENABLE = no           # Allow tap dance combinations
 
-# Split sources
+# Sources
 SRC += features/encoder.c
 SRC += features/utility.c
 SRC += features/swapper.c
 SRC += features/switcher.c
+SRC += features/leader.c

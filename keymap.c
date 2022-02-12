@@ -1,9 +1,10 @@
 #include QMK_KEYBOARD_H
 
-#include "encoder.h"
+#include "features/encoder.h"
 #include "features/utility.h"
-#include "swapper.h"
-#include "switcher.h"
+#include "features/swapper.h"
+#include "features/switcher.h"
+#include "features/leader.h"
 
 //
 // ***

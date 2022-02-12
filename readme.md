@@ -2,16 +2,7 @@
 
 Features:
 
-- Modes for Qwerty/Qwerty for games/Colemak
-
-- Reduce hold shift
-  - shift layer for avoid keeping shift hold for symbols / punctuations
-  - shift on hold space/enter to tap upper case character
-
-- Leader key sequence to input accentuated character
-  - no timer
-  - works on upper and lower character
-  - e, u, i, c
+- Support for Qwerty / Colemak
 
 - Consistent hold / tap for modifiers
   - no timer
@@ -37,14 +28,29 @@ Features:
 - Navigation layer
   - mouse, 4 buttons and scroll
   - arrows, begin, end
-  - shortcuts (paste, copy, ...)
+  - auto ctrl for common task (paste, copy, ...)
+  - hold + move layer
 
 - Numpad layer
-  - everything on the left part
+  - no timer
+  - numbers on the left
+  - function keys on the right
+  - hold / one shot layer
 
 - Symbol layer
   - shifted keys without shift required
-  - less finger mouvement
+  - access to leader key for chording
+  - hold / one shot layer
+
+- Easy shift
+  - shift layer for avoid keeping shift hold for symbols / punctuations
+  - shift on hold space/enter to tap upper case character
+  - space / enter en tap but shift on hold
+
+- Leader key sequence to input accentuated character
+  - no timer
+  - works on upper and lower character
+  - e, u, i, c
 
 - Encoder controls
   - left : volume up/down/mute

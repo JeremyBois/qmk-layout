@@ -425,6 +425,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 void* leader_start_func(uint16_t keycode) {
     switch (keycode) {
         case KC_W:
+        case KC_F:
             // é
             tap_code16(ALGR(KC_E));
             break;

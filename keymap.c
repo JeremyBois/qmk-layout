@@ -424,8 +424,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 //
 void* leader_start_func(uint16_t keycode) {
     switch (keycode) {
-        case KC_W:
-        case KC_F:
+        case KC_T:  // Colemak
+        case KC_F:  // Qwerty
             // é
             tap_code16(ALGR(KC_E));
             break;
@@ -444,7 +444,8 @@ void* leader_start_func(uint16_t keycode) {
             tap_key_with_mods(KC_GRV, 0U);
             tap_code16(KC_A);
             break;
-        case KC_R:
+        case KC_P:  // Colemak
+        case KC_R:  // Qwerty
             // ë
             tap_code16(S(KC_QUOT));
             tap_code16(KC_E);

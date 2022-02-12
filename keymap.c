@@ -56,7 +56,6 @@ enum custom_keycodes {
 
 enum custom_layers {
     _QWERTY = 0,
-    _GAME,
     _COLEMAK,
     _NAV,
     _NUM,
@@ -88,30 +87,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_LCTL,  KC_Z, KC_X, KC_C, KC_V, KC_B, KC_MUTE,     XXXXXXX, KC_N, KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_RCTL,
                KC_LGUI, MHL_NAV, OS_LALT, TO(0), MT(MOD_LSFT, KC_SPC),
                                                         MT(MOD_LSFT, KC_ENT),  OSL_SYM, OS_LCTL, OSL_NUM, KC_RALT
-    ),
-
-    /*
-     * QWERTY GAME
-     * ,------------------------------------------.                    ,-----------------------------------------.
-     * | ESC  |   1   |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  | DEL  |
-     * |------+-------+------+------+------+------|                    |------+------+------+------+------+------|
-     * | ESC  |   Q   |   W  |   E  |   R  |   T  |                    |   Y  |   U  |   I  |   O  |   P  | DEL  |
-     * |------+-------+------+------+------+------|                    |------+------+------+------+------+------|
-     * | TAB  |   A   |   S  |  D   |  F   |   G  |-------.    ,-------|   H  |   J  |   K  |   L  |   ;  | BSPC |
-     * |------+-------+------+------+------+------| MUTE  |    |       |------+------+------+------+------+------|
-     * | CTRL |   Z   |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  | RCTR |
-     * `------------------------------------------/       /     \      \-----------------------------------------'
-     *          | LGUI | NAV  | LALT | DEFAULT | /Space  /       \Enter \  |  SYM   | LCTR |  NUM  |  RALT|
-     *          |      |      |      |         |/       /         \      \ |        |      |       |      |
-     *          `--------------------------------------'           '------''------------------------------'
-     */
-    [_GAME] = LAYOUT(
-      _______, KC_1,  KC_2,  KC_3,  KC_4, KC_5,                       KC_6,   KC_7,   KC_8,   KC_9,   KC_0,    _______,
-      _______, KC_Q,  KC_W,  KC_E,  KC_R, KC_T,                       KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,    _______,
-      _______, KC_A,  KC_S,  KC_D,  KC_F, KC_G,                       KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN, _______,
-      _______, KC_Z,  KC_X,  KC_C,  KC_V, KC_B, KC_MUTE,     XXXXXXX, KC_N, KC_M, KC_COMM,  KC_DOT, KC_SLSH, _______,
-                _______, _______, _______, _______, _______,
-                                                        _______, _______, _______, _______, _______
     ),
 
     /*
@@ -209,7 +184,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* ADJUST
      * ,------------------------------------------.                     ,-----------------------------------------.
-     * |RESET  | DEBUG|      |QWERTY|_GAME |COLEMAK|                    |      |      |      |      |      |      |
+     * |RESET  | DEBUG|      |QWERTY|      |COLEMAK|                    |      |      |      |      |      |      |
      * |-------+------+------+------+------+-------|                    |------+------+------+------+------+------|
      * |EEPRST |      |RGB_MO|RGB_TO|      | BRIU  |                    |      | MRWD | STOP | MFFD |      |      |
      * |-------+------+------+------+------+-------|                    |------+------+------+------+------+------|
@@ -222,7 +197,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *          `--------------------------------------'            '------''------------------------------'
      */
       [_ADJUST] = LAYOUT(
-      RESET, DEBUG, XXXXXXX, DF(_QWERTY), DF(_GAME), DF(_COLEMAK),           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      RESET, DEBUG, XXXXXXX, DF(_QWERTY), XXXXXXX, DF(_COLEMAK),           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
       EEP_RST, XXXXXXX, RGB_MOD, RGB_TOG, XXXXXXX, KC_BRIU,                  XXXXXXX, KC_MRWD, KC_MEDIA_STOP, KC_MFFD, XXXXXXX, XXXXXXX,
       XXXXXXX, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX, KC_BRID,                  KC_PSCR, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX,
       XXXXXXX, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, XXXXXXX,_______,      _______, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX,
@@ -261,9 +236,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // Indicator is orange        || QWERTY
     const rgblight_segment_t PROGMEM qwerty_layer[] = RGBLIGHT_LAYER_SEGMENTS({0, 1, HSV_ORANGE_INDICATOR});
 
-    // Indicator is green         || GAME
-    const rgblight_segment_t PROGMEM game_layer[] = RGBLIGHT_LAYER_SEGMENTS({0, 1, HSV_GREEN_INDICATOR});
-
     // Indicator is white         || COLEMAK
     const rgblight_segment_t PROGMEM colemak_layer[] = RGBLIGHT_LAYER_SEGMENTS({0, 1, HSV_WHITE_INDICATOR});
 
@@ -286,7 +258,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
         my_capslock_layer,
         qwerty_layer,
-        game_layer,
         colemak_layer,     // Overrides other layers
         navigation_layer,  // Overrides other layers
         numpad_layer,      // Overrides other layers
@@ -307,17 +278,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     layer_state_t default_layer_state_set_user(layer_state_t state) {
         // Allow to switch between different layout
         rgblight_set_layer_state(1, layer_state_cmp(state, _QWERTY));
-        rgblight_set_layer_state(2, layer_state_cmp(state, _GAME));
-        rgblight_set_layer_state(3, layer_state_cmp(state, _COLEMAK));
+        rgblight_set_layer_state(2, layer_state_cmp(state, _COLEMAK));
         return state;
     }
 
     layer_state_t layer_state_set_user(layer_state_t state) {
         // Allow to switch between different additional layout
-        rgblight_set_layer_state(4, layer_state_cmp(state, _NAV));
-        rgblight_set_layer_state(5, layer_state_cmp(state, _NUM));
-        rgblight_set_layer_state(6, layer_state_cmp(state, _SYM));
-        rgblight_set_layer_state(7, layer_state_cmp(state, _ADJUST));
+        rgblight_set_layer_state(3, layer_state_cmp(state, _NAV));
+        rgblight_set_layer_state(4, layer_state_cmp(state, _NUM));
+        rgblight_set_layer_state(5, layer_state_cmp(state, _SYM));
+        rgblight_set_layer_state(6, layer_state_cmp(state, _ADJUST));
         return state;
     }
 

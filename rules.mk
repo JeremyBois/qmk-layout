@@ -27,6 +27,6 @@ TAP_DANCE_ENABLE = no           # Allow tap dance combinations
 
 # Split sources
 SRC += features/encoder.c
-SRC += features/tapdance.c
+SRC += features/utility.c
 SRC += features/swapper.c
 SRC += features/switcher.c

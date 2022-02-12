@@ -349,7 +349,7 @@ bool is_oneshot_ignored_key(uint16_t keycode) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
-    // Process leader key sequences
+    // Process leader key sequences (no timer)
     if (!process_leader(keycode, record)) {
         return false;
     }
@@ -449,6 +449,11 @@ void* leader_start_func(uint16_t keycode) {
             // ë
             tap_code16(S(KC_QUOT));
             tap_code16(KC_E);
+            break;
+        case KC_Y:
+            // ÿ
+            tap_code16(S(KC_QUOT));
+            tap_code16(KC_Y);
             break;
         case KC_C:
             // ç

@@ -87,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_ESC,   KC_Q, KC_W, KC_E, KC_R, KC_T,                  KC_Y,  KC_U,  KC_I, KC_O, KC_P,    KC_DEL,
       KC_TAB,   KC_A, KC_S, KC_D, KC_F, KC_G,                  KC_H,  KC_J,  KC_K, KC_L, KC_SCLN, KC_BSPC,
       KC_LCTL,  KC_Z, KC_X, KC_C, KC_V, KC_B, KC_MUTE,     XXXXXXX, KC_N, KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_RCTL,
-               KC_LGUI, MHL_NAV, OS_LALT, MHL_DEF, MT(MOD_LSFT, KC_SPC),
+               KC_LGUI, MHL_NAV, OS_LALT, TO(0), MT(MOD_LSFT, KC_SPC),
                                                         MT(MOD_LSFT, KC_ENT),  OSL_SYM, OS_LCTL, OSL_NUM, KC_RALT
     ),
 
@@ -318,15 +318,11 @@ oneshot_state os_lsft_state = os_up_unqueued;
 oneshot_state  osl_symbol_state  = os_up_unqueued;
 oneshot_state  osl_numpad_state  = os_up_unqueued;
 movehold_state mhl_nav_state     = mh_cleared;
-movehold_state mhl_default_state = mh_cleared;
-// movehold_state mhl_numpad_state = mh_cleared;
 
-bool navigation_was_on = false;
 
 bool is_oneshot_cancel_key(uint16_t keycode) {
     switch (keycode) {
         case TO(0):
-        case MHL_DEF:
         case MHL_NAV:
         case MHL_NUM:
         case KC_ESC:
@@ -340,7 +336,6 @@ bool is_oneshot_ignored_key(uint16_t keycode) {
     switch (keycode) {
         case MHL_NAV:
         case MHL_NUM:
-        case MHL_DEF:
         case OSL_SYM:
         case OSL_NUM:
         case KC_LCTL:
@@ -367,25 +362,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 
     // Custom layer change (no timer)
     update_move_hold_layer(&mhl_nav_state, _NAV, MHL_NAV, keycode, record);
-
-    // Custom default layer change (no timer)
-    // Allow to temporarily switch to default layer while in navigation
-    // Custom code required because default layer is always active
-    bool navigation_is_on = layer_state_is(_NAV);
-    bool default_was_held = mhl_default_state == mh_down_used;
-    update_move_hold_layer(&mhl_default_state, 0, MHL_DEF, keycode, record);
-    if (navigation_is_on && mhl_default_state == mh_down_unused) {
-        // Detect switching from navigation to default layer
-        navigation_was_on = true;
-    } else if (navigation_was_on &&             // Navigation active before layer switch
-               default_was_held &&              // Default is a hold
-               mhl_default_state == mh_cleared  // Default released
-    ) {
-        // Detect hold operation on default layer
-        // switch back to navigation
-        navigation_was_on = false;
-        layer_move(_NAV);
-    }
 
     // Custom one shot layer (no timer)
     update_oneshot_layer(&osl_symbol_state, _SYM, OSL_SYM, keycode, record);

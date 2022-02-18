@@ -64,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
      * QWERTY
      * ,------------------------------------------.                    ,-----------------------------------------.
-     * | ESC  |   1   |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  | DEL  |
+     * |      |   1   |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  |      |
      * |------+-------+------+------+------+------|                    |------+------+------+------+------+------|
      * | ESC  |   Q   |   W  |   E  |   R  |   T  |                    |   Y  |   U  |   I  |   O  |   P  | DEL  |
      * |------+-------+------+------+------+------|                    |------+------+------+------+------+------|
@@ -77,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *          `--------------------------------------'           '------''------------------------------'
      */
     [_QWERTY] = LAYOUT(
-      KC_ESC,   KC_1, KC_2, KC_3, KC_4, KC_5,                  KC_6,  KC_7,  KC_8, KC_9, KC_0,    KC_DEL,
+      XXXXXXX,  KC_1, KC_2, KC_3, KC_4, KC_5,                  KC_6,  KC_7,  KC_8, KC_9, KC_0,    XXXXXXX,
       KC_ESC,   KC_Q, KC_W, KC_E, KC_R, KC_T,                  KC_Y,  KC_U,  KC_I, KC_O, KC_P,    KC_DEL,
       KC_TAB,   KC_A, KC_S, KC_D, KC_F, KC_G,                  KC_H,  KC_J,  KC_K, KC_L, KC_SCLN, KC_BSPC,
       KC_LCTL,  KC_Z, KC_X, KC_C, KC_V, KC_B, KC_MUTE,     XXXXXXX, KC_N, KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_RCTL,
@@ -88,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
      * COLEMAK
      * ,------------------------------------------.                    ,-----------------------------------------.
-     * | ESC  |   1  |   2  |   3  |   4  |   5   |                    |   6  |   7  |   8  |   9  |   0  | DEL  |
+     * |      |   1  |   2  |   3  |   4  |   5   |                    |   6  |   7  |   8  |   9  |   0  |      |
      * |------+------+------+------+------+-------|                    |------+------+------+------+------+------|
      * | ESC  |   Q  |   W  |   F  |   P  |   G   |                    |   J  |   L  |   U  |   Y  |   ;  | DEL  |
      * |------+------+------+------+------+-------|                    |------+------+------+------+------+------|
@@ -111,7 +111,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* NAV
      * ,------------------------------------------.                    ,-----------------------------------------.
-     * | ESC  |      |      |      |       |      |                    |      |      |      |      |      | DEL  |
+     * |      |      |      |      |       |      |                    |      |      |      |      |      |      |
      * |------+------+------+------+-------+------|                    |------+------+------+------+------+------|
      * | ESC  |      | WH_L |  MU  | WH_R  | WH_U |                    | PgUp | Home |  Up  | End  | MB4  | DEL  |
      * |------+------+------+------+-------+------|                    |------+------+------+------+------+------|
@@ -136,11 +136,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ,------------------------------------------.                    ,-----------------------------------------.
      * |      |      |      |      |      |       |                    |      |      |      |      |      |      |
      * |------+------+------+------+------+-------|                    |------+------+------+------+------+------|
-     * | ESC  |      |   4  |   5  |   6  |  F11  |                    |  F11 |  F4  |  F5  |  F6  |      | DEL  |
+     * | ESC  |      |   4  |   5  |   6  |       |                    |  F11 |  F4  |  F5  |  F6  |      | DEL  |
      * |------+------+------+------+------+-------|                    |------+------+------+------+------+------|
-     * | TAB  |  0   |   1  |   2  |   3  |  F10  |-------.    ,-------|  F10 |  F1  |  F2  |  F3  |      | BSPC |
+     * | TAB  |  0   |   1  |   2  |   3  |       |-------.    ,-------|  F10 |  F1  |  F2  |  F3  |      | BSPC |
      * |------+------+------+------+------+-------|  MUTE |    |       |------+------+------+------+------+------|
-     * | LCTR |      |   7  |   8  |   9  |  F12  |-------|    |-------|  F12 |  F7  |  F8  |  F9  |      | RCTR |
+     * | LCTR |      |   7  |   8  |   9  |       |-------|    |-------|  F12 |  F7  |  F8  |  F9  |      | RCTR |
      * `------------------------------------------/      /      \      \-----------------------------------------'
      *          | LGUI |      | LALT | DEFAULT | /Space /        \Enter \  |  SYM   | LCTR |       | RALT |
      *          |      |      |      |         |/      /          \      \ |        |      |       |      |
@@ -148,9 +148,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [_NUM] = LAYOUT(
       _______, _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______,  _______,
-      _______, XXXXXXX, KC_4,  KC_5,  KC_6, KC_F11,              KC_F11,  KC_F4,  KC_F5,  KC_F6,  XXXXXXX, _______,
-      _______, KC_0,    KC_1,  KC_2,  KC_3, KC_F10,              KC_F10,  KC_F1,  KC_F2,  KC_F3,  XXXXXXX, _______,
-      _______, XXXXXXX, KC_7,  KC_8,  KC_9, KC_F12, _______,   _______, KC_F12, KC_F7, KC_F8, KC_F9, XXXXXXX, _______,
+      _______, XXXXXXX, KC_4,  KC_5,  KC_6, XXXXXXX,             KC_F11,  KC_F4,  KC_F5,  KC_F6,  XXXXXXX, _______,
+      _______, KC_0,    KC_1,  KC_2,  KC_3, XXXXXXX,             KC_F10,  KC_F1,  KC_F2,  KC_F3,  XXXXXXX, _______,
+      _______, XXXXXXX, KC_7,  KC_8,  KC_9, XXXXXXX, _______,   _______, KC_F12, KC_F7, KC_F8, KC_F9, XXXXXXX, _______,
                 _______, _______, _______, TO(0), _______,
                                                         _______, _______, _______, _______, _______
     ),
@@ -170,7 +170,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *          `-------------------------------------'            '- ----''------------------------------'
      */
     [_SYM] = LAYOUT(
-      _______, _______, _______, _______, _______, _______,         _______,  _______,  _______,  _______,  _______, _______,
+      _______, _______, _______, _______, _______, _______,               _______,  _______,  _______,  _______,  _______, _______,
       _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,               KC_CIRC, KC_AMPR, KC_ASTR, KC_SCLN, KC_COLN, _______,
       _______, C_GRV,   KC_MINS, KC_PLUS, C_CHORD, C_QUOT,                KC_LBRC, KC_LCBR, KC_LPRN, KC_LT, KC_PIPE, _______,
       KC_CAPS, C_TILD,  KC_UNDS, KC_EQL,  KC_BSLS, C_DQUOT, _______,   _______, KC_RBRC, KC_RCBR, KC_RPRN, KC_GT, KC_QUES, TO(_ADJUST),
@@ -179,26 +179,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     /* ADJUST
-     * ,------------------------------------------.                     ,-----------------------------------------.
-     * |RESET  | DEBUG|      |QWERTY|      |COLEMAK|                    |      |      |      |      |      |      |
-     * |-------+------+------+------+------+-------|                    |------+------+------+------+------+------|
-     * |EEPRST |      |RGB_MO|RGB_TO|      | BRIU  |                    |      | MRWD | STOP | MFFD |      |      |
-     * |-------+------+------+------+------+-------|                    |------+------+------+------+------+------|
-     * |       |hue ^ |sat ^ | bri ^|      | BRID  |-------.    ,-------| Pscr | PREV | PLAY | NEXT |      |      |
-     * |-------+------+------+------+------+-------|  MUTE |    |       |------+------+------+------+------+------|
-     * |       |huedn |satdn |bridn |      |       |-------|    |-------|      |      |      |      |      |      |
-     * `------------------------------------------/       /      \      \-----------------------------------------'
-     *          | LGUI | NAV  | LALT | DEFAULT | /       /        \      \  |  SYM   | LCTR |  NUM  |  RALT|
-     *          |      |      |      |         |/       /          \      \ |        |      |       |      |
-     *          `--------------------------------------'            '------''------------------------------'
+     * ,---------------------------------------------.                    ,-----------------------------------------.
+     * |       |      |      |       |       |       |                    |      |      |      |      |      |      |
+     * |-------+------+------+-------+-------+-------|                    |------+------+------+------+------+------|
+     * |RGB_MO |hue ^ |sat ^ | bri ^ |       |  BRIU |                    |      | MRWD | STOP | MFFD |      | RESET|
+     * |-------+------+------+-------+-------|-------+                    |------+------+------+------+------+------|
+     * |RGB_TO |huedn |satdn |bridn  |       |  BRID |-------.    ,-------| Pscr | PREV | PLAY | NEXT |      |EEPRST|
+     * |-------+------+------+-------+-------+-------|  MUTE |    |       |------+------+------+------+------+------|
+     * |       |      |      |       |       |       |-------|    |-------|      |      |      |      |      |DEBUG |
+     * `--------------------------------------------/       /      \      \-----------------------------------------'
+     *          |      |      |      | DEFAULT   | / QWERTY/        \COLEMAK  |        |      |       |      |
+     *          |      |      |      |           |/       /          \      \ |        |      |       |      |
+     *          `----------------------------------------'            '------''------------------------------'
      */
       [_ADJUST] = LAYOUT(
-      RESET, DEBUG, XXXXXXX, DF(_QWERTY), XXXXXXX, DF(_COLEMAK),           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-      EEP_RST, XXXXXXX, RGB_MOD, RGB_TOG, XXXXXXX, KC_BRIU,                  XXXXXXX, KC_MRWD, KC_MEDIA_STOP, KC_MFFD, XXXXXXX, XXXXXXX,
-      XXXXXXX, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX, KC_BRID,                  KC_PSCR, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX,
-      XXXXXXX, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, XXXXXXX,_______,      _______, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX,
-                    XXXXXXX, XXXXXXX, XXXXXXX, TO(0), XXXXXXX,
-                                                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX, KC_BRIU,                  XXXXXXX, KC_MRWD, KC_MEDIA_STOP, KC_MFFD, XXXXXXX, RESET,
+      RGB_TOG, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, KC_BRID,                  KC_PSCR, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, EEP_RST,
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,_______,      _______, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, DEBUG,
+                    XXXXXXX, XXXXXXX, XXXXXXX, TO(0), DF(_QWERTY),
+                                                        DF(_COLEMAK), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
     )
     };
 

@@ -12,24 +12,12 @@
 // ***
 //
 
+enum custom_keycodes {
 #ifdef VIA_ENABLE
-enum custom_keycodes {
     C_GRV = USER00,
-    C_TILD,
-    C_QUOT,
-    C_DQUOT,
-    C_CHORD,
-    SW_CTAB,  // Ctrl-tab
-    SW_ATAB,  // Alt-tab
-    OSL_SYM,  // One shot layer without timer
-    OHL_NUM,  // On hold layer without timer
-    OS_LALT,  // One shot mod without timers
-    OS_LCTL,
-    OS_RCTL
-}
 #else
-enum custom_keycodes {
     C_GRV = SAFE_RANGE,
+#endif
     C_TILD,
     C_QUOT,
     C_DQUOT,
@@ -37,12 +25,12 @@ enum custom_keycodes {
     SW_CTAB,  // Ctrl-tab
     SW_ATAB,  // Alt-tab
     OSL_SYM,  // One shot layer without timer
-    OHL_NUM,  // On hold layer without timer
+    MHL_NUM,  // On hold layer without timer
+    MHL_NAV,  //
     OS_LALT,  // One shot mod without timers
     OS_LCTL,
     OS_RCTL
 };
-#endif
 
 //
 // ***
@@ -50,14 +38,7 @@ enum custom_keycodes {
 // ***
 //
 
-enum custom_layers {
-    _QWERTY = 0,
-    _COLEMAK,
-    _NAV,
-    _NUM,
-    _SYM,
-    _ADJUST
-};
+enum custom_layers { _QWERTY = 0, _COLEMAK, _NAV, _NUM, _SYM, _ADJUST };
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -81,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_ESC,   KC_Q, KC_W, KC_E, KC_R, KC_T,                  KC_Y,  KC_U,  KC_I, KC_O, KC_P,    KC_DEL,
       KC_TAB,   KC_A, KC_S, KC_D, KC_F, KC_G,                  KC_H,  KC_J,  KC_K, KC_L, KC_SCLN, KC_BSPC,
       KC_LCTL,  KC_Z, KC_X, KC_C, KC_V, KC_B, KC_MUTE,     XXXXXXX, KC_N, KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_RCTL,
-               KC_LGUI, XXXXXXX, OS_LALT, TO(_NAV), MT(MOD_LSFT, KC_SPC),
+               KC_LGUI, XXXXXXX, OS_LALT, MHL_NAV, MT(MOD_LSFT, KC_SPC),
                                                         MT(MOD_LSFT, KC_ENT),  OSL_SYM, OS_LCTL, XXXXXXX, KC_RALT
     ),
 
@@ -175,7 +156,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______, C_GRV,   KC_MINS, KC_PLUS, C_CHORD, C_QUOT,                KC_LBRC, KC_LCBR, KC_LPRN, KC_LT, KC_PIPE, _______,
       KC_CAPS, C_TILD,  KC_UNDS, KC_EQL,  KC_BSLS, C_DQUOT, _______,   _______, KC_RBRC, KC_RCBR, KC_RPRN, KC_GT, KC_QUES, TO(_ADJUST),
                 _______, _______, _______, TO(0), KC_BSPC,
-                                                        KC_DEL, OHL_NUM, _______, _______, _______
+                                                        KC_DEL, MHL_NUM, _______, _______, _______
     ),
 
     /* ADJUST
@@ -255,8 +236,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         my_capslock_layer,
         qwerty_layer,
         colemak_layer,     // Overrides other layers
-        navigation_layer,  // Overrides other layers
         numpad_layer,      // Overrides other layers
+        navigation_layer,  // Overrides other layers
         symbol_layer,      // Overrides other layers
         adjust_layer       // Overrides other layers
     );
@@ -280,8 +261,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     layer_state_t layer_state_set_user(layer_state_t state) {
         // Allow to switch between different additional layout
-        rgblight_set_layer_state(3, layer_state_cmp(state, _NAV));
-        rgblight_set_layer_state(4, layer_state_cmp(state, _NUM));
+        rgblight_set_layer_state(3, layer_state_cmp(state, _NUM));
+        rgblight_set_layer_state(4, layer_state_cmp(state, _NAV));
         rgblight_set_layer_state(5, layer_state_cmp(state, _SYM));
         rgblight_set_layer_state(6, layer_state_cmp(state, _ADJUST));
         return state;
@@ -309,13 +290,13 @@ oneshot_state os_lalt_state = os_up_unqueued;
 
 // Custom layer switchers
 oneshot_state osl_symbol_state = os_up_unqueued;
-oneshot_state ohl_numpad_state = os_up_unqueued;
+oneshot_state mhl_numpad_state = os_up_unqueued;
+oneshot_state mhl_nav_state    = os_up_unqueued;
 
 bool is_oneshot_cancel_key(uint16_t keycode) {
     // Escape and moved layer
     switch (keycode) {
         case TO(0):
-        case TO(_NAV):
         case KC_ESC:
             return true;
         default:
@@ -327,7 +308,8 @@ bool is_oneshot_layer_cancel_key(uint16_t keycode) {
     switch (keycode) {
         case TO(0):
         case TO(_NAV):
-        case OHL_NUM:
+        case MHL_NUM:
+        case MHL_NAV:
         case KC_ESC:
             return true;
         default:
@@ -340,7 +322,8 @@ bool is_oneshot_ignored_key(uint16_t keycode) {
         case TO(0):
         case TO(_NAV):
         case OSL_SYM:
-        case OHL_NUM:
+        case MHL_NUM:
+        case MHL_NAV:
         case KC_LCTL:
         case KC_LALT:
         case KC_LSFT:
@@ -377,21 +360,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     update_oneshot(&os_lctl_state, KC_LCTL, OS_LCTL, keycode, record);
     update_oneshot(&os_rctl_state, KC_RCTL, OS_RCTL, keycode, record);
 
-    // Discard key used to end a swapper
-    if ((!sw_atab_active && old_sw_atab_active) || (!sw_ctab_active && old_sw_ctab_active)) {
-        return false;
-    }
-
     // Custom layer change (no timer)
     if (keycode != TO(0)) {
         bool handled = true;
         handled &= update_oneshot_layer(&osl_symbol_state, _SYM, OSL_SYM, keycode, record);
-        handled &= update_on_hold_layer(&ohl_numpad_state, _NUM, OHL_NUM, keycode, record);
+        handled &= update_move_hold_layer(&mhl_numpad_state, _NUM, MHL_NUM, keycode, record);
+        handled &= update_move_hold_layer(&mhl_nav_state, _NAV, MHL_NAV, keycode, record);
         if (!handled) return false;
     } else {
         // Force reset of all states
         osl_symbol_state = os_up_unqueued;
-        ohl_numpad_state = os_up_unqueued;
+        mhl_numpad_state = os_up_unqueued;
+        mhl_nav_state    = os_up_unqueued;
+    }
+
+    // Discard key used to end a swapper
+    if ((!sw_atab_active && old_sw_atab_active) || (!sw_ctab_active && old_sw_ctab_active)) {
+        return false;
     }
 
     // Custom keycodes

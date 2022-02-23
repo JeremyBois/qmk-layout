@@ -196,14 +196,21 @@ bool update_move_hold_layer(oneshot_state *state, uint16_t layer, uint16_t trigg
     return true;
 }
 
-bool update_on_hold_layer(oneshot_state *state, uint16_t layer, uint16_t trigger, uint16_t keycode, keyrecord_t *record) {
+bool update_active_hold_layer(oneshot_state *state, uint16_t layer, uint16_t trigger, uint16_t keycode, keyrecord_t *record) {
     if (keycode == trigger) {
         if (record->event.pressed) {
-            // Trigger keydown
-            if (*state == os_up_unqueued) {
-                layer_on(layer);
+            if (*state == os_up_queued || *state == os_up_queued_used) {
+                // Deactivate if active
+                layer_off(layer);
+                *state = os_up_unqueued;
+            } else {
+                // Activate if inactive
+                if (*state == os_up_unqueued) {
+                    layer_on(layer);
+                }
+                *state = os_down_unused;
             }
-            *state = os_down_unused;
+
             return false;
         } else {
             // Trigger keyup
@@ -235,10 +242,6 @@ bool update_on_hold_layer(oneshot_state *state, uint16_t layer, uint16_t trigger
                         // Handle tap case
                         *state = os_up_queued_used;
                         return true;
-                    case os_up_queued_used:
-                        // Handle tap case
-                        *state = os_up_unqueued;
-                        return false;
                     default:
                         break;
                 }
@@ -246,10 +249,6 @@ bool update_on_hold_layer(oneshot_state *state, uint16_t layer, uint16_t trigger
                 // Reset state to make it work if we use another key to change layer
                 switch (*state) {
                     case os_up_queued:
-                        // Force reset of layer state
-                        *state = os_up_unqueued;
-                        return true;
-                    case os_up_queued_used:
                         // Force reset of layer state
                         *state = os_up_unqueued;
                         return true;

@@ -31,7 +31,7 @@ bool update_oneshot_layer(oneshot_state *state, uint16_t layer, uint16_t trigger
 bool update_move_hold_layer(oneshot_state *state, uint16_t layer, uint16_t trigger, uint16_t keycode, keyrecord_t *record);
 
 // Same as update_move_hold_layer but using layer_on not layer_move
-bool update_on_hold_layer(oneshot_state *state, uint16_t layer, uint16_t trigger, uint16_t keycode, keyrecord_t *record);
+bool update_active_hold_layer(oneshot_state *state, uint16_t layer, uint16_t trigger, uint16_t keycode, keyrecord_t *record);
 
 // To be implemented by the consumer. Layers one shot implementation needs to
 // know which keys are used as oneshot mods

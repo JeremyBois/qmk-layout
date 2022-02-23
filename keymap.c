@@ -38,8 +38,6 @@ enum custom_keycodes {
 // ***
 //
 
-enum custom_layers { _QWERTY = 0, _COLEMAK, _NAV, _NUM, _SYM, _ADJUST };
-
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
@@ -163,11 +161,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ,---------------------------------------------.                    ,-----------------------------------------.
      * |       |      |      |       |       |       |                    |      |      |      |      |      |      |
      * |-------+------+------+-------+-------+-------|                    |------+------+------+------+------+------|
-     * |RGB_MO |hue ^ |sat ^ | bri ^ |       |  BRIU |                    |      | MRWD | STOP | MFFD |      | RESET|
+     * |RGB_MO |hue ^ |sat ^ | bri ^ |       |  BRIU |                    | VOLU | MRWD | STOP | MFFD |      |RESET |
      * |-------+------+------+-------+-------|-------+                    |------+------+------+------+------+------|
-     * |RGB_TO |huedn |satdn |bridn  |       |  BRID |-------.    ,-------| Pscr | PREV | PLAY | NEXT |      |EEPRST|
+     * |RGB_TO |huedn |satdn |bridn  |       |  BRID |-------.    ,-------| VOLD | PREV | PLAY | NEXT |      |EEPRST|
      * |-------+------+------+-------+-------+-------|  MUTE |    |       |------+------+------+------+------+------|
-     * |       |      |      |       |       |       |-------|    |-------|      |      |      |      |      |DEBUG |
+     * |       |      |      |       |       |       |-------|    |-------| PSCR |      |      |      |      |DEBUG |
      * `--------------------------------------------/       /      \      \-----------------------------------------'
      *          |      |      |      | DEFAULT   | / QWERTY/        \COLEMAK  |        |      |       |      |
      *          |      |      |      |           |/       /          \      \ |        |      |       |      |
@@ -175,9 +173,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
       [_ADJUST] = LAYOUT(
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-      RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX, KC_BRIU,                  XXXXXXX, KC_MRWD, KC_MEDIA_STOP, KC_MFFD, XXXXXXX, RESET,
-      RGB_TOG, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, KC_BRID,                  KC_PSCR, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, EEP_RST,
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,_______,      _______, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, DEBUG,
+      RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX, KC_BRIU,                  KC_VOLU, KC_MRWD, KC_MEDIA_STOP, KC_MFFD, XXXXXXX, RESET,
+      RGB_TOG, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, KC_BRID,                  KC_VOLD, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, EEP_RST,
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,_______,      _______, KC_PSCR, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, DEBUG,
                     XXXXXXX, XXXXXXX, XXXXXXX, TO(0), DF(_QWERTY),
                                                         DF(_COLEMAK), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
     )

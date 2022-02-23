@@ -166,3 +166,6 @@ for more options.
 // Allow more layer on VIA software
 // #define DYNAMIC_KEYMAP_LAYER_COUNT 5
 // NOT WORKING YET
+
+// Layer settings
+enum custom_layers { _QWERTY = 0, _COLEMAK, _NAV, _NUM, _SYM, _ADJUST };

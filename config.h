@@ -101,12 +101,13 @@ for more options.
 #endif
 #define TAPPING_TERM 220  // Tapping duration in ms
 
-// https://github.com/qmk/qmk_firmware/blob/master/docs/tap_hold.md#permissive-hold
-// Does not work with tap dance
-// #define PERMISSIVE_HOLD
-
 // https://github.com/qmk/qmk_firmware/blob/master/docs/tap_hold.md#ignore-mod-tap-interrupt
+// Remove special case for mod tap keys that strongly prefers the hold
 #define IGNORE_MOD_TAP_INTERRUPT
+
+// https://github.com/qmk/qmk_firmware/blob/master/docs/tap_hold.md#permissive-hold
+// Allow a more permissive hold for mod tap (does not work with tap dance).
+#define PERMISSIVE_HOLD
 
 // https://github.com/qmk/qmk_firmware/blob/master/docs/tap_hold.md#hold-on-other-key-press
 // #define HOLD_ON_OTHER_KEY_PRESS

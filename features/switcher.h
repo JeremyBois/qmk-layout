@@ -48,3 +48,12 @@ bool is_oneshot_layer_cancel_key(uint16_t keycode);
 // change keys allows stacking multiple oneshot modifiers, and carrying them
 // between layers.
 bool is_oneshot_ignored_key(uint16_t keycode);
+
+
+typedef enum {
+    mm_held_unused,
+    mm_held_used,
+    mm_up,
+} move_mod_state;
+
+bool update_move_mod_layer(move_mod_state *state, uint16_t layer, uint16_t mods, uint16_t trigger, uint16_t keycode, keyrecord_t *record, uint16_t* internal_timer);

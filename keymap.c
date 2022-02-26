@@ -281,10 +281,12 @@ bool old_sw_ctab_active = false;
 bool old_sw_atab_active = false;
 
 // Custom layer switchers
-oneshot_state osl_symbol_state = os_up_unqueued;
-uint16_t nav_timer;
-uint16_t num_timer;
-uint16_t def_timer;
+oneshot_state  osl_symbol_state = os_up_unqueued;
+move_mod_state mml_nav_state    = mm_up;
+move_mod_state mml_num_state    = mm_up;
+uint16_t       nav_timer;
+uint16_t       num_timer;
+uint16_t       def_timer;
 
 bool is_oneshot_cancel_key(uint16_t keycode) {
     // Escape and moved layer
@@ -346,6 +348,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 
     // Custom layer change (no timer)
     update_oneshot_layer(&osl_symbol_state, _SYM, OSL_SYM, keycode, record);
+    // Custom mod / layer (timer)
+    bool handled = update_move_mod_layer(&mml_nav_state, _NAV, KC_LALT, ALT_NAV, keycode, record, &nav_timer);
+    handled &= update_move_mod_layer(&mml_num_state, _NUM, KC_LCTL, CTRL_NUM, keycode, record, &num_timer);
+    if (!handled) {
+        return false;
+    }
 
     // Discard key used to end a swapper
     if ((!sw_atab_active && old_sw_atab_active) || (!sw_ctab_active && old_sw_ctab_active)) {
@@ -354,44 +362,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 
     // Custom keycodes
     switch (keycode) {
-        case ALT_NAV:
-            if (record->event.pressed) {
-                nav_timer = timer_read();
-                // On held
-                register_code(KC_LALT);
-            } else {
-                unregister_code(KC_LALT);
-                if (timer_elapsed(nav_timer) < TAPPING_TERM) {
-                    // On tap
-                    tap_code16(KC_ESC);  // Avoid side effect
-                    layer_move(_NAV);
-                }
-            }
-            return false;
-        case CTRL_NUM:
-            if (record->event.pressed) {
-                num_timer = timer_read();
-                // On held
-                register_code(KC_LCTL);
-            } else {
-                unregister_code(KC_LCTL);
-                if (timer_elapsed(num_timer) < TAPPING_TERM) {
-                    // On tap
-                    tap_code16(KC_ESC);  // Avoid side effect
-                    layer_move(_NUM);
-                }
-            }
-            return false;
         case ESC_DEF:
             if (record->event.pressed) {
                 def_timer = timer_read();
             } else {
                 if (timer_elapsed(def_timer) < TAPPING_TERM) {
-                    // On tap
+                    // On tapped
                     layer_move(0);
                 } else {
                     // On held
-                    tap_code16(KC_ESC);  // Avoid side effect
+                    tap_code16(KC_ESC);
                 }
             }
             return false;

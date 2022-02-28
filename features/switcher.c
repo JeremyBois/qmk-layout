@@ -261,7 +261,7 @@ bool update_active_hold_layer(oneshot_state *state, uint16_t layer, uint16_t tri
     return true;
 }
 
-bool update_move_mod_layer(move_mod_state *state, uint16_t layer, uint16_t mod, uint16_t trigger, uint16_t keycode, keyrecord_t *record, uint16_t *internal_timer) {
+bool update_move_mod_layer(tap_mod_state *state, uint16_t layer, uint16_t mod, uint16_t trigger, uint16_t keycode, keyrecord_t *record, uint16_t *internal_timer) {
     if (keycode == trigger) {
         if (record->event.pressed) {
             // Start timer to select between hold/tap later
@@ -302,6 +302,61 @@ bool update_move_mod_layer(move_mod_state *state, uint16_t layer, uint16_t mod, 
                         // Register mod and let qmk handle the pressed key + mod
                         *state = mm_held_used;
                         register_code(mod);
+                        return true;
+                    default:
+                        break;
+                }
+            }
+        }
+    }
+    return true;
+}
+
+bool update_tap_hold_layer(tap_mod_state *state, uint16_t layerTap, uint16_t layerHold, uint16_t trigger, uint16_t keycode, keyrecord_t *record, uint16_t* internal_timer)
+{
+    if (keycode == trigger) {
+        if (record->event.pressed) {
+            // Start timer to select between hold/tap later
+            *internal_timer = timer_read();
+            *state          = mm_held_unused;
+            return false;
+        } else {
+            // Trigger keyup
+            switch (*state) {
+                case mm_held_used:
+                    // Another key was tapped while holding this one
+                    // Assume user want a hold
+                    *state = mm_up;
+                    layer_off(layerHold);
+                    return false;
+                case mm_held_unused:
+                    // Assume tapped if quick enough
+                    if (timer_elapsed(*internal_timer) < TAPPING_TERM) {
+                        layer_move(layerTap);
+                    }
+                    else{
+                        layer_move(layerHold);
+                    }
+                default:
+                    break;
+            }
+            *state = mm_up;
+            return false;
+        }
+    } else {
+        if (record->event.pressed) {
+            if (is_oneshot_cancel_key(keycode) && *state != mm_up) {
+                // Cancel modifier
+                *state = mm_up;
+                layer_off(layerHold);
+                return false;
+            }
+            else if (!is_oneshot_ignored_key(keycode)) {
+                switch (*state) {
+                    case mm_held_unused:
+                        // Register layerHold and let qmk handle the pressed key in that layer
+                        *state = mm_held_used;
+                        layer_on(layerHold);
                         return true;
                     default:
                         break;

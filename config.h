@@ -168,4 +168,4 @@ for more options.
 // NOT WORKING YET
 
 // Layer settings
-enum custom_layers { _QWERTY = 0, _COLEMAK, _NAV, _NUM, _SYM, _ADJUST };
+enum custom_layers { _DEFAULT = 0, _COLEMAK, _NAV, _NUM, _SYM, _ADJUST };

@@ -295,8 +295,7 @@ bool update_move_mod_layer(tap_mod_state *state, uint16_t layer, uint16_t mod, u
                 *state = mm_up;
                 unregister_code(mod);
                 return false;
-            }
-            else if (!is_oneshot_ignored_key(keycode)) {
+            } else if (!is_oneshot_ignored_key(keycode)) {
                 switch (*state) {
                     case mm_held_unused:
                         // Register mod and let qmk handle the pressed key + mod
@@ -312,8 +311,7 @@ bool update_move_mod_layer(tap_mod_state *state, uint16_t layer, uint16_t mod, u
     return true;
 }
 
-bool update_tap_hold_layer(tap_mod_state *state, uint16_t layerTap, uint16_t layerHold, uint16_t trigger, uint16_t keycode, keyrecord_t *record, uint16_t* internal_timer)
-{
+bool update_tap_hold_layer(tap_mod_state *state, uint16_t layerTap, uint16_t layerHold, uint16_t trigger, uint16_t keycode, keyrecord_t *record, uint16_t *internal_timer) {
     if (keycode == trigger) {
         if (record->event.pressed) {
             // Start timer to select between hold/tap later
@@ -333,8 +331,7 @@ bool update_tap_hold_layer(tap_mod_state *state, uint16_t layerTap, uint16_t lay
                     // Assume tapped if quick enough
                     if (timer_elapsed(*internal_timer) < TAPPING_TERM) {
                         layer_move(layerTap);
-                    }
-                    else{
+                    } else {
                         layer_move(layerHold);
                     }
                 default:
@@ -350,8 +347,7 @@ bool update_tap_hold_layer(tap_mod_state *state, uint16_t layerTap, uint16_t lay
                 *state = mm_up;
                 layer_off(layerHold);
                 return false;
-            }
-            else if (!is_oneshot_ignored_key(keycode)) {
+            } else if (!is_oneshot_ignored_key(keycode)) {
                 switch (*state) {
                     case mm_held_unused:
                         // Register layerHold and let qmk handle the pressed key in that layer

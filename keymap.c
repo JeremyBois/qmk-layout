@@ -87,6 +87,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                         _______, _______, _______, _______, _______
     ),
 
+    /* NUM
+     * ,------------------------------------------.                    ,-----------------------------------------.
+     * |      |      |      |      |      |       |                    |      |      |      |      |      |      |
+     * |------+------+------+------+------+-------|                    |------+------+------+------+------+------|
+     * | ESC  |      |   4  |   5  |   6  |       |                    |  F11 |  F4  |  F5  |  F6  |  F8  | DEL  |
+     * |------+------+------+------+------+-------|                    |------+------+------+------+------+------|
+     * | TAB  |  0   |   1  |   2  |   3  |       |-------.    ,-------|  F10 |  F1  |  F2  |  F3  |  F9  | BSPC |
+     * |------+------+------+------+------+-------|  MUTE |    |       |------+------+------+------+------+------|
+     * | LCTR |      |   7  |   8  |   9  |       |-------|    |-------|  F12 |  F7  |  ,   |  .   |  /   | RCTR |
+     * `------------------------------------------/      /      \      \-----------------------------------------'
+     *          | LGUI |      | NUM  | DEF     | / Space /       \Enter \  |  SYM   | CTRL |       |  RALT|
+     *          |      |      | ALT  | NAV     |/ LSFT  /         \ LSFT \ |  SYM   | CTRL |       |      |
+     *          `--------------------------------------'           '------''------------------------------'
+     */
+    [_NUM] = LAYOUT(
+      _______, _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______,  _______,
+      _______, XXXXXXX, KC_4,  KC_5,  KC_6, XXXXXXX,             KC_F11,  KC_F4,  KC_F5,  KC_F6,  KC_F8, _______,
+      _______, KC_0,    KC_1,  KC_2,  KC_3, XXXXXXX,             KC_F10,  KC_F1,  KC_F2,  KC_F3,  KC_F9, _______,
+      _______, XXXXXXX, KC_7,  KC_8,  KC_9, XXXXXXX, _______,   _______, KC_F12, KC_F7, KC_COMM,  KC_DOT, KC_SLSH, _______,
+                    _______, _______, _______, _______, _______,
+                                                        _______, _______, _______, _______, _______
+    ),
+
     /* NAV
      * ,------------------------------------------.                    ,-----------------------------------------.
      * |      |      |      |      |       |      |                    |      |      |      |      |      |      |
@@ -110,38 +133,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                         _______, _______, _______, _______, _______
     ),
 
-    /* NUM
-     * ,------------------------------------------.                    ,-----------------------------------------.
-     * |      |      |      |      |      |       |                    |      |      |      |      |      |      |
-     * |------+------+------+------+------+-------|                    |------+------+------+------+------+------|
-     * | ESC  |      |   4  |   5  |   6  |       |                    |  F11 |  F4  |  F5  |  F6  |      | DEL  |
-     * |------+------+------+------+------+-------|                    |------+------+------+------+------+------|
-     * | TAB  |  0   |   1  |   2  |   3  |   0   |-------.    ,-------|  F10 |  F1  |  F2  |  F3  | F10  | BSPC |
-     * |------+------+------+------+------+-------|  MUTE |    |       |------+------+------+------+------+------|
-     * | LCTR |      |   7  |   8  |   9  |       |-------|    |-------|  F12 |  F7  |  F8  |  F9  |      | RCTR |
-     * `------------------------------------------/      /      \      \-----------------------------------------'
-     *          | LGUI |      | NUM  | DEF     | / Space /       \Enter \  |  SYM   | CTRL |       |  RALT|
-     *          |      |      | ALT  | NAV     |/ LSFT  /         \ LSFT \ |  SYM   | CTRL |       |      |
-     *          `--------------------------------------'           '------''------------------------------'
-     */
-    [_NUM] = LAYOUT(
-      _______, _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______,  _______,
-      _______, XXXXXXX, KC_4,  KC_5,  KC_6, XXXXXXX,             KC_F11,  KC_F4,  KC_F5,  KC_F6,  XXXXXXX, _______,
-      _______, KC_0,    KC_1,  KC_2,  KC_3, KC_0,                KC_F10,  KC_F1,  KC_F2,  KC_F3,  XXXXXXX, _______,
-      _______, XXXXXXX, KC_7,  KC_8,  KC_9, XXXXXXX, _______,   _______, KC_F12, KC_F7, KC_F8, KC_F9, XXXXXXX, _______,
-                    _______, _______, _______, _______, _______,
-                                                        _______, _______, _______, _______, _______
-    ),
-
     /* SYM
      * ,------------------------------------------.                    ,-----------------------------------------.
      * |      |      |      |      |      |       |                    |      |      |      |      |      |      |
      * |------+------+------+------+------+-------|                    |------+------+------+------+------+------|
-     * | ESC  |  `   |  @   |  #   |  $   |   %   |                    |  ^   |   &  |  *   |   !  |   ?  | DEL  |
+     * | ESC  |  `   |  @   |  #   |  $   |   %   |                    |  ^   |   &  |  *   |   !  |      | DEL  |
      * |------+------+------+------+------+-------|                    |------+------+------+------+------+------|
      * | TAB  |  |   |  -   |  +   |Chord |   '   |-------.    ,-------|  [   |  {   |  (   |   ;  |   :  | BSPC |
      * |------+------+------+------+------+-------|  MUTE |    |       |------+------+------+------+------+------|
-     * | CAPS |  ~   |  _   |  =   |  \   |   "   |-------|    |-------|  ]   |  }   |  )   |   .  |   /  |ADJUST|
+     * | CAPS |  ~   |  _   |  =   |  \   |   "   |-------|    |-------|  ]   |  }   |  )   |   ?  |      |ADJUST|
      * `------------------------------------------/      /      \      \-----------------------------------------'
      *          | LGUI |      | NUM  | DEF     | / Space /       \Enter \  |  SYM   | CTRL |       |  RALT|
      *          |      |      | ALT  | NAV     |/ LSFT  /         \ LSFT \ |  SYM   | CTRL |       |      |
@@ -149,9 +149,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [_SYM] = LAYOUT(
       _______, _______, _______, _______, _______, _______,               _______,  _______,  _______,  _______,  _______, _______,
-      _______, C_GRV,   KC_AT,   KC_HASH, KC_DLR,  KC_PERC,               KC_CIRC, KC_AMPR, KC_ASTR, KC_EXLM, KC_QUES, _______,
+      _______, C_GRV,   KC_AT,   KC_HASH, KC_DLR,  KC_PERC,               KC_CIRC, KC_AMPR, KC_ASTR, KC_EXLM, XXXXXXX, _______,
       _______,KC_PIPE,  KC_MINS, KC_PLUS, C_CHORD, C_QUOT,                KC_LBRC, KC_LCBR, KC_LPRN, KC_SCLN, KC_COLN, _______,
-      KC_CAPS, C_TILD,  KC_UNDS, KC_EQL,  KC_BSLS, C_DQUOT, _______,   _______, KC_RBRC, KC_RCBR, KC_RPRN, KC_DOT,  KC_SLSH, TO(_ADJUST),
+      KC_CAPS, C_TILD,  KC_UNDS, KC_EQL,  KC_BSLS, C_DQUOT, _______,   _______, KC_RBRC, KC_RCBR, KC_RPRN, KC_QUES,  XXXXXXX, TO(_ADJUST),
                     _______, _______, _______, _______, KC_BSPC,
                                                         KC_DEL, _______, _______, _______, _______
     ),
@@ -234,8 +234,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         my_capslock_layer,
         qwerty_layer,
         colemak_layer,     // Overrides other layers
-        navigation_layer,  // Overrides other layers
         numpad_layer,      // Overrides other layers
+        navigation_layer,  // Overrides other layers
         symbol_layer,      // Overrides other layers
         adjust_layer       // Overrides other layers
     );
@@ -259,8 +259,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     layer_state_t layer_state_set_user(layer_state_t state) {
         // Allow to switch between different additional layout
-        rgblight_set_layer_state(3, layer_state_cmp(state, _NAV));
-        rgblight_set_layer_state(4, layer_state_cmp(state, _NUM));
+        rgblight_set_layer_state(3, layer_state_cmp(state, _NUM));
+        rgblight_set_layer_state(4, layer_state_cmp(state, _NAV));
         rgblight_set_layer_state(5, layer_state_cmp(state, _SYM));
         rgblight_set_layer_state(6, layer_state_cmp(state, _ADJUST));
         return state;
@@ -297,7 +297,7 @@ bool is_oneshot_cancel_key(uint16_t keycode) {
     switch (keycode) {
         case TO(0):
         case KC_ESC:
-        case NAV_DEF:
+        case ALT_NUM:
             return true;
         default:
             return false;
@@ -319,6 +319,8 @@ bool is_oneshot_ignored_key(uint16_t keycode) {
     switch (keycode) {
         case TO(0):
         case OSL_SYM:
+        case ALT_NUM:
+        case NAV_DEF:
         case KC_LCTL:
         case KC_RCTL:
         case KC_LALT:
@@ -357,10 +359,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     update_oneshot_layer(&osl_symbol_state, _SYM, OSL_SYM, keycode, record);
 
     // Custom mod / layer (timer)
-    bool handled = update_move_mod_layer(&mml_nav_state, _NUM, KC_LALT, ALT_NUM, keycode, record, &nav_timer);
+    bool handled = update_move_mod_layer(&mml_num_state, _NUM, KC_LALT, ALT_NUM, keycode, record, &nav_timer);
     // Custom layer held / on (timer)
-    handled &= update_tap_hold_layer(&mml_num_state, _DEFAULT, _NAV, NAV_DEF, keycode, record, &num_timer);
-
+    handled &= update_tap_hold_layer(&mml_nav_state, _DEFAULT, _NAV, NAV_DEF, keycode, record, &num_timer);
     if (!handled) {
         return false;
     }

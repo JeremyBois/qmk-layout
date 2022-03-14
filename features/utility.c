@@ -14,3 +14,8 @@ void tap_key_with_mods(uint16_t keycode, uint8_t mods) {
     set_mods(prev_mods);
     send_keyboard_report();
 };
+
+void tap_undead_key(uint16_t code) {
+    tap_code16(code);
+    tap_code16(KC_SPACE);
+}

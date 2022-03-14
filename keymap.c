@@ -8,29 +8,6 @@
 #include "features/switcher.h"
 #include "features/leader.h"
 
-//
-// ***
-// CUSTOM KEYCODE HANDLING
-// ***
-//
-
-enum custom_keycodes {
-#ifdef VIA_ENABLE
-    C_GRV = USER00,
-#else
-    C_GRV = SAFE_RANGE,
-#endif
-    ALT_NUM,
-    NAV_DEF,
-    C_TILD,
-    C_QUOT,
-    C_DQUOT,
-    C_CHORD,
-    SW_CTAB,  // Ctrl-tab
-    SW_ATAB,  // Alt-tab
-    OSL_SYM,  // One shot layer without timer
-    OS_LCTL   // One shot mod without timers
-};
 
 //
 // ***

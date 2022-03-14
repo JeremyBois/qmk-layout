@@ -1,6 +1,7 @@
 #ifdef ENCODER_ENABLE
 
 #    include "encoder.h"
+#    include "customCodes.h"
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {

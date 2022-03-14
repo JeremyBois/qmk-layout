@@ -1,5 +1,6 @@
 #include "config.h"
 #include QMK_KEYBOARD_H
+#include "features/customCodes.h"
 
 #include "features/encoder.h"
 #include "features/utility.h"

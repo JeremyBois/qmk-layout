@@ -24,19 +24,19 @@ for more options.
 #    define RGBLED_SPLIT \
         { 36, 36 }
 
-#    define RGBLIGHT_LIMIT_VAL 130  // Limit to avoid controller to crash
+#    define RGBLIGHT_LIMIT_VAL 130 // Limit to avoid controller to crash
 #    define RGBLIGHT_HUE_STEP 20
 #    define RGBLIGHT_SAT_STEP 20
 #    define RGBLIGHT_VAL_STEP 20
 
-#    define RGBLIGHT_SLEEP  // Turn off LEDs when computer sleeping (+72)
+#    define RGBLIGHT_SLEEP // Turn off LEDs when computer sleeping (+72)
 
 #    ifdef RGB_MATRIX_ENABLE
 #        define DRIVER_LED_TOTAL RGBLED_NUM
 #        define RGB_MATRIX_SPLIT RGBLED_SPLIT
 #        define SPLIT_TRANSPORT_MIRROR
 
-#        define RGB_MATRIX_MAXIMUM_BRIGHTNESS 130  // Limit to avoid controller to crash
+#        define RGB_MATRIX_MAXIMUM_BRIGHTNESS 130 // Limit to avoid controller to crash
 #        define RGB_MATRIX_HUE_STEP 20
 #        define RGB_MATRIX_SAT_STEP 20
 #        define RGB_MATRIX_VAL_STEP 20
@@ -99,7 +99,7 @@ for more options.
 #ifdef TAPPING_TERM
 #    undef TAPPING_TERM
 #endif
-#define TAPPING_TERM 220  // Tapping duration in ms
+#define TAPPING_TERM 220 // Tapping duration in ms
 
 // https://github.com/qmk/qmk_firmware/blob/master/docs/tap_hold.md#ignore-mod-tap-interrupt
 // Remove special case for mod tap keys that strongly prefers the hold
@@ -113,20 +113,24 @@ for more options.
 // #define HOLD_ON_OTHER_KEY_PRESS
 
 // One shot settings
-#define ONESHOT_TAP_TOGGLE 10  // Sticky key activation (high to only support it in code)
-#define ONESHOT_TIMEOUT 4000   // Sticky key duration
+#define ONESHOT_TAP_TOGGLE 10 // Sticky key activation (high to only support it in code)
+#define ONESHOT_TIMEOUT 4000  // Sticky key duration
 
 // Combo settings
 #ifdef COMBO_ENABLE
-#    define EXTRA_SHORT_COMBOS
 #    undef COMBO_TERM
-#    define COMBO_TERM 400  // Default combo timeout is 200ms.
+#    define COMBO_TERM 35 // Default combo timeout is 200ms.
+#    define EXTRA_SHORT_COMBOS
+#    define COMBO_MUST_TAP_PER_COMBO
+#    define COMBO_TERM_PER_COMBO
+// All combos are specified from the base layer, saves space
+#    define COMBO_ONLY_FROM_LAYER 0
 #endif
 
 // Leader settings
 #ifdef LEADER_ENABLE
 #    define LEADER_NO_TIMEOUT
-#    define LEADER_TIMEOUT 400  // Default leader timeout is 200ms.
+#    define LEADER_TIMEOUT 400 // Default leader timeout is 200ms.
 #endif
 
 // Pimoroni trackball settings
@@ -139,7 +143,7 @@ for more options.
 
 // NKRO Settings
 #ifdef NKRO_ENABLE
-#    define FORCE_NKRO  // Force NKRO if enabled.
+#    define FORCE_NKRO // Force NKRO if enabled.
 #endif
 
 // Color for layers
@@ -161,11 +165,3 @@ for more options.
 #    define MOUSEKEY_WHEEL_MAX_SPEED 8
 #    define MOUSEKEY_WHEEL_TIME_TO_MAX 40
 #endif
-
-// NOT WORKING YET
-// Allow more layer on VIA software
-// #define DYNAMIC_KEYMAP_LAYER_COUNT 5
-// NOT WORKING YET
-
-// Layer settings
-enum custom_layers { _DEFAULT = 0, _COLEMAK, _NUM, _NAV, _SYM, _ADJUST };

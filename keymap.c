@@ -1,6 +1,7 @@
 #include "config.h"
 #include QMK_KEYBOARD_H
 #include "features/customCodes.h"
+#include "g/keymap_combo.h"
 
 #include "features/encoder.h"
 #include "features/utility.h"
@@ -246,6 +247,44 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #endif
 // clang-format on
+
+//
+// ***
+// COMBOS
+// ***
+//
+
+uint16_t get_combo_term(uint16_t index, combo_t* combo) {
+    switch (index) {
+        // Home / Tight combos
+        case tab:
+        case leader:
+        case del:
+            return COMBO_TERM;
+        // Top / Bottom / Other
+        default:
+            return COMBO_TERM + 25;
+    }
+}
+
+bool get_combo_must_tap(uint16_t index, combo_t* combo) {
+    switch (index) {
+        case del:
+        case tab:
+        case leader:
+        case escape_l:
+        case escape_r:
+            return false;
+        default:
+            return true;
+    }
+}
+
+//
+// ***
+// TAP HOLD
+// ***
+//
 
 //
 // ***

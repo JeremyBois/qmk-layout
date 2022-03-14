@@ -1,0 +1,32 @@
+// TOP ROW
+// Left
+COMB(escape_l, KC_ESC, KC_E, KC_R)
+// Right
+COMB(escape_r, KC_ESC, KC_U, KC_I)
+
+// HOME ROW
+// Left
+COMB(tab, KC_TAB, KC_A, KC_S)
+// Right
+COMB(leader, C_CHORD, KC_J, KC_K)
+COMB(del, KC_DEL, KC_L, KC_BSPC)
+
+// BOTTOM ROW
+// Left
+// Right
+
+// Thumbs
+// Left
+// Right
+
+// // Numbers @TODO
+// COMB(comb_6,            KC_6,           KC_SPC, KC_R)
+// COMB(comb_4,            KC_4,           KC_SPC, KC_S)
+// COMB(comb_0,            KC_0,           KC_SPC, KC_T)
+// COMB(comb_2,            KC_2,           KC_SPC, KC_H)
+// COMB(comb_8,            KC_8,           KC_SPC, KC_D)
+// COMB(comb_9,            KC_9,           KC_SPC, KC_L)
+// COMB(comb_3,            KC_3,           KC_SPC, KC_N)
+// COMB(comb_1,            KC_1,           KC_SPC, KC_A)
+// COMB(comb_5,            KC_5,           KC_SPC, KC_I)
+// COMB(comb_7,            KC_7,           KC_SPC, KC_BACK)

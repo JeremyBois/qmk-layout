@@ -13,6 +13,7 @@ RGBLIGHT_ENABLE = yes			# RGB lighting (+3826)
 ENCODER_ENABLE = yes		    # Rotary encoders (+1112)
 EXTRAKEY_ENABLE = yes			# Audio control and System control (+450)
 MOUSEKEY_ENABLE = yes			# Mouse keys (+1482). Not required for trackball usage
+COMBO_ENABLE = yes              # Allow to write combo
 
 # Unused
 BOOTMAGIC_ENABLE = no           # Software way to enter boot mode
@@ -21,9 +22,19 @@ CONSOLE_ENABLE = no             # Console for debug (+4686)
 UNICODE_ENABLE = no             # Allow to send unicode characters
 SPACE_CADET_ENABLE = no 		# Save space by not using space cadet left/right shift (+350)
 NKRO_ENABLE = no				# 6KRO by default. NKRO works if enabled (+328)
-COMBO_ENABLE = no               # Allow to write combo
 TAP_DANCE_ENABLE = no           # Allow tap dance combinations
 LEADER_ENABLE = no              # Combinaisons with a leader key
+GRAVE_ESC_ENABLE = no
+
+# Saves a bunch of memory
+# EXTRAFLAGS += -flto
+VERBOSE = no
+DEBUG_MATRIX_SCAN_RATE  = no
+DEBUG_MATRIX = no
+MAGIC_ENABLE = no
+
+# Easy definition of combos
+VPATH +=  keyboards/gboards/
 
 # Sources
 SRC += features/encoder.c

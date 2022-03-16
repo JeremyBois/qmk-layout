@@ -83,6 +83,9 @@ bool update_oneshot_layer(oneshot_state *state, uint16_t layer, uint16_t trigger
                 layer_off(layer);
                 return false;
             }
+            if (is_oneshot_ignored_key(keycode) && *state != os_up_unqueued) {
+                return false;
+            }
             uint8_t key_layer = read_source_layers_cache(record->event.key);
             if (key_layer == layer) {
                 // On non-ignored keyup, consider the oneshot used.

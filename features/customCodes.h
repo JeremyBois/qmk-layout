@@ -22,6 +22,11 @@ enum custom_keycodes {
     C_QUOT,
     C_DQUOT,
     C_CHORD,
+    C_Z,
+    C_X,
+    C_C,
+    C_V,
+    C_SLSH,
     SW_CTAB, // Ctrl-tab
     SW_ATAB, // Alt-tab
     OSL_SYM, // One shot layer without timer

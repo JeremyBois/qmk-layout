@@ -9,8 +9,8 @@
 see https://docs.qmk.fm/#/feature_split_keyboard?id=setting-handedness
 for more options.
 // */
-#define MASTER_LEFT
-// #define MASTER_RIGHT
+// #define MASTER_LEFT
+#define MASTER_RIGHT
 
 // Encoder resolution on both sides
 // https://github.com/qmk/qmk_firmware/blob/master/docs/feature_encoders.md

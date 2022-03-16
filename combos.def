@@ -6,10 +6,10 @@ COMB(escape_r, KC_ESC, KC_U, KC_I)
 
 // HOME ROW
 // Left
-COMB(tab, KC_TAB, KC_A, KC_S)
+COMB(tab, KC_TAB, KC_S, KC_D)
 // Right
 COMB(leader, C_CHORD, KC_J, KC_K)
-COMB(del, KC_DEL, KC_L, KC_BSPC)
+COMB(del, KC_DEL, KC_K, KC_L)
 
 // BOTTOM ROW
 // Left

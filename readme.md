@@ -65,6 +65,3 @@ Features:
 
 
 ## TODO
-
-  - Trouver une meilleure place pour backspace / delete
-  - Remplacer la gestion de `leader key` par une implémentation sans timer

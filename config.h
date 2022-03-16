@@ -9,8 +9,8 @@
 see https://docs.qmk.fm/#/feature_split_keyboard?id=setting-handedness
 for more options.
 // */
-// #define MASTER_LEFT
-#define MASTER_RIGHT
+#define MASTER_LEFT
+// #define MASTER_RIGHT
 
 // Encoder resolution on both sides
 // https://github.com/qmk/qmk_firmware/blob/master/docs/feature_encoders.md
@@ -119,9 +119,10 @@ for more options.
 // Combo settings
 #ifdef COMBO_ENABLE
 #    undef COMBO_TERM
-#    define COMBO_TERM 35 // Default combo timeout is 200ms.
+#    define COMBO_TERM 55 // Default combo timeout is 200ms.
 #    define EXTRA_SHORT_COMBOS
 #    define COMBO_MUST_TAP_PER_COMBO
+// #    define COMBO_MUST_HOLD_PER_COMBO
 #    define COMBO_TERM_PER_COMBO
 // All combos are specified from the base layer, saves space
 #    define COMBO_ONLY_FROM_LAYER 0

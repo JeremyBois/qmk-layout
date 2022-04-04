@@ -29,8 +29,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |      |   Z   |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  |      |
      * |      | Shift | Ctrl |  Alt |  GUI |      |       |    |       |      | Ralt | Alt  | Ctrl | Shift|      |
      * `------------------------------------------/       /     \      \-----------------------------------------'
-     *          |      |     |   NAV  | NUM    | / Space /       \Enter \ |  SYM   |  DEF   |       |      |
-     *          |      |     |   NAV  | NUM    |/       /         \      \|  SYM   |        |       |      |
+     *          |      |     |   NAV  | Space  | /  NUM  /       \ SYM  \ |  Enter |  DEF   |       |      |
+     *          |      |     |   NAV  | Shift  |/  NUM  /         \ SYM  \|  Ctrl  |        |       |      |
      *          `------------------------------'-------'           '------'--------------------------------'
      */
     [_DEFAULT] = LAYOUT(
@@ -39,8 +39,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       XXXXXXX,  KC_A,   KC_S,   KC_D,   KC_F,   KC_G,                  KC_H,    KC_J,    KC_K,   KC_L,   C_CHORD,   XXXXXXX,
 XXXXXXX, LSFT_T(KC_Z), LCTL_T(KC_X), LALT_T(KC_C), LGUI_T(KC_V), KC_B, KC_MUTE,
                                     XXXXXXX, KC_N, RALT_T(KC_M), LALT_T(KC_COMM), RCTL_T(KC_DOT), RSFT_T(KC_SLSH), XXXXXXX,
-                    XXXXXXX, XXXXXXX, MHL_NAV, OSL_NUM, KC_SPC,
-                                                        KC_ENT, OSL_SYM, TO(_DEFAULT), XXXXXXX, XXXXXXX
+            XXXXXXX, XXXXXXX, MHL_NAV, MT(MOD_LSFT, KC_SPC), OSL_NUM,
+                                                             OSL_SYM, MT(MOD_LSFT, KC_ENT), TO(_DEFAULT), XXXXXXX, XXXXXXX
     ),
 
     /*
@@ -55,8 +55,8 @@ XXXXXXX, LSFT_T(KC_Z), LCTL_T(KC_X), LALT_T(KC_C), LGUI_T(KC_V), KC_B, KC_MUTE,
      * |      |   Z  |   X  |   C  |   V  |   B   |-------|    |-------|   K  |   M  |   ,  |   .  |   /  |      |
      * |      | Ctrl | Shift|  Alt |  Gui |       |       |    |       |      | Ralt | Alt  | Shift| Ctrl |      |
      * `------------------------------------------/       /     \      \-----------------------------------------'
-     *          |      |     |   NAV  | NUM    | / Space /       \Enter \ |  SYM   |  DEF   |       |      |
-     *          |      |     |   NAV  | NUM    |/       /         \      \|  SYM   |        |       |      |
+     *          |      |     |   NAV  | Space  | /  NUM  /       \ SYM  \ |  Enter |  DEF   |       |      |
+     *          |      |     |   NAV  | Shift  |/  NUM  /         \ SYM  \|  Ctrl  |        |       |      |
      *          `------------------------------'-------'           '------'--------------------------------'
      */
     [_COLEMAK] = LAYOUT(
@@ -80,8 +80,8 @@ XXXXXXX, LSFT_T(KC_Z), LCTL_T(KC_X), LALT_T(KC_C), LGUI_T(KC_V), KC_B, KC_MUTE,
      * |      | Undo | Cut  | Copy | Paste |LDesk |-------|    |-------|RDesk | MB1  | MB2  | MB3  | Com  |      |
      * |      | Shift| Ctrl |  Alt |  Gui  |      |       |    |       |      |      |      | Ctrl | Shift|      |
      * `------------------------------------------/       /     \      \-----------------------------------------'
-     *          |      |     |   NAV  | NUM    | / Space /       \Enter \ |  SYM   |  DEF   |       |      |
-     *          |      |     |   NAV  | NUM    |/       /         \      \|  SYM   |        |       |      |
+     *          |      |     |   NAV  | Space  | /  NUM  /       \ SYM  \ |  Enter |  DEF   |       |      |
+     *          |      |     |   NAV  | Shift  |/  NUM  /         \ SYM  \|  Ctrl  |        |       |      |
      *          `------------------------------'-------'           '------'--------------------------------'
      */
     [_NAV] = LAYOUT(
@@ -105,8 +105,8 @@ XXXXXXX, LSFT_T(KC_Z), LCTL_T(KC_X), LALT_T(KC_C), LGUI_T(KC_V), KC_B, KC_MUTE,
      * |      | Undo | Cut  | Copy |Paste |       |-------|    |-------|  F11 |  F12 |  ,   |  .   |  /   |      |
      * |      | Shift| Ctrl |  Alt |  Gui |       |       |    |       |      |      | Alt  | Ctrl | Shift|      |
      * `------------------------------------------/       /     \      \-----------------------------------------'
-     *          |      |     |   NAV  | NUM    | / Space /       \Enter \ |  SYM   |  DEF   |       |      |
-     *          |      |     |   NAV  | NUM    |/       /         \      \|  SYM   |        |       |      |
+     *          |      |     |   NAV  | Space  | /  NUM  /       \ SYM  \ |  Enter |  DEF   |       |      |
+     *          |      |     |   NAV  | Shift  |/  NUM  /         \ SYM  \|  Ctrl  |        |       |      |
      *          `------------------------------'-------'           '------'--------------------------------'
      */
     [_NUM] = LAYOUT(
@@ -129,8 +129,8 @@ _______, LSFT_T(C_Z), LCTL_T(C_X), LALT_T(C_C), LGUI_T(C_V), XXXXXXX, _______,
      * |------+------+------+------+------+-------|  MUTE |    |       |------+------+------+------+------+------|
      * |      |  ~   |  _   |  =   |  "   |   >   |-------|    |-------|  ]   |  }   |  )   |   ?  |   \  |      |
      * `------------------------------------------/       /     \      \-----------------------------------------'
-     *          |      |     |   NAV  | NUM    | / Space /       \Enter \ |  SYM   |  DEF   |       |      |
-     *          |      |     |   NAV  | NUM    |/       /         \      \|  SYM   |        |       |      |
+     *          |      |     |   NAV  | Space  | /  NUM  /       \ SYM  \ |  Enter |  DEF   |       |      |
+     *          |      |     |   NAV  | Shift  |/  NUM  /         \ SYM  \|  Ctrl  |        |       |      |
      *          `------------------------------'-------'           '------'--------------------------------'
      */
     [_SYM] = LAYOUT(

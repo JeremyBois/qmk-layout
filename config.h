@@ -107,7 +107,7 @@ for more options.
 
 // https://github.com/qmk/qmk_firmware/blob/master/docs/tap_hold.md#permissive-hold
 // Allow a more permissive hold for mod tap (does not work with tap dance).
-#define PERMISSIVE_HOLD
+// #define PERMISSIVE_HOLD
 
 // https://github.com/qmk/qmk_firmware/blob/master/docs/tap_hold.md#hold-on-other-key-press
 // #define HOLD_ON_OTHER_KEY_PRESS

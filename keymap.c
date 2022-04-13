@@ -327,8 +327,6 @@ bool get_combo_must_tap(uint16_t index, combo_t* combo) {
 // Custom swappers
 bool sw_ctab_active     = false;
 bool sw_atab_active     = false;
-bool old_sw_ctab_active = false;
-bool old_sw_atab_active = false;
 
 // Custom layer switchers
 oneshot_state osl_symbol_state = os_up_unqueued;
@@ -400,8 +398,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     }
 
     // Swapper on one key (no timer)
-    update_swapper(&sw_ctab_active, &old_sw_ctab_active, KC_LCTL, KC_TAB, SW_CTAB, keycode, record);
-    update_swapper(&sw_atab_active, &old_sw_atab_active, KC_LALT, KC_TAB, LSFT_T(SW_ATAB), keycode, record);
+    bool discard_swapper_key = update_swapper(&sw_ctab_active, KC_LCTL, KC_TAB, SW_CTAB, keycode, record);
+    discard_swapper_key |= update_swapper(&sw_atab_active, KC_LALT, KC_TAB, LSFT_T(SW_ATAB), keycode, record);
+
+    // Discard keys used to end a swapper
+    if (discard_swapper_key) {
+        return false;
+    }
 
     // Custom layer change (no timer)
     bool notHandled = update_oneshot_layer(&osl_symbol_state, _SYM, OSL_SYM, keycode, record);
@@ -409,11 +412,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     notHandled      = update_move_hold_layer(&mhl_nav_state, _NAV, MHL_NAV, keycode, record);
 
     if (!notHandled) {
-        return false;
-    }
-
-    // Discard keys used to end a swapper
-    if ((!sw_atab_active && old_sw_atab_active) || (!sw_ctab_active && old_sw_ctab_active)) {
         return false;
     }
 

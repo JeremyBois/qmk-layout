@@ -2,7 +2,7 @@
 
 #include QMK_KEYBOARD_H
 
-// Author = callum-oakley
+// Original author = callum-oakley
 // https://github.com/callum-oakley/qmk_firmware/blob/master/users/callum/swapper.h
 
 // Implements cmd-tab like behaviour on a single key. On first tap of trigger
@@ -13,9 +13,8 @@
 //     nav down, trigger, nav up -> nav down, cmd down, tab, cmd up, nav up
 //
 // This behaviour is useful for more than just cmd-tab, hence: cmdish, tabish.
-void update_swapper(
+bool update_swapper(
     bool *active,
-    bool *old_active,
     uint16_t cmdish,
     uint16_t tabish,
     uint16_t trigger,

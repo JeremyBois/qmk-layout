@@ -325,8 +325,8 @@ bool get_combo_must_tap(uint16_t index, combo_t* combo) {
 //
 
 // Custom swappers
-bool sw_ctab_active     = false;
-bool sw_atab_active     = false;
+bool sw_ctab_active = false;
+bool sw_atab_active = false;
 
 // Custom layer switchers
 oneshot_state osl_symbol_state = os_up_unqueued;
@@ -363,19 +363,21 @@ bool is_oneshot_ignored_key(uint16_t keycode) {
         case MHL_NAV:
         case OSL_SYM:
         case OSL_NUM:
-        // Allow modifier on one shot layer
-        case LSFT_T(KC_0):
-        case LSFT_T(KC_9):
-        case LALT_T(C_X):
-        case LALT_T(KC_DOT):
-        case LGUI_T(C_Z):
-        case RALT_T(C_SLSH):
+        // Modifiers
         case KC_LCTL:
         case KC_RCTL:
         case KC_LALT:
         case KC_RALT:
         case KC_LGUI:
         case KC_LSFT:
+        // Allow modifier on one shot layer
+        // From numpad / nav layer
+        case LSFT_T(KC_0):
+        case LSFT_T(KC_9):
+        case LALT_T(C_X):
+        case LALT_T(KC_DOT):
+        case LGUI_T(C_Z):
+        case RALT_T(C_SLSH):
             return true;
         default:
             return false;
@@ -401,17 +403,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     bool discard_swapper_key = update_swapper(&sw_ctab_active, KC_LCTL, KC_TAB, SW_CTAB, keycode, record);
     discard_swapper_key |= update_swapper(&sw_atab_active, KC_LALT, KC_TAB, LSFT_T(SW_ATAB), keycode, record);
 
-    // Discard keys used to end a swapper
-    if (discard_swapper_key) {
-        return false;
-    }
-
     // Custom layer change (no timer)
     bool notHandled = update_oneshot_layer(&osl_symbol_state, _SYM, OSL_SYM, keycode, record);
     notHandled      = update_oneshot_layer(&osl_numpad_state, _NUM, OSL_NUM, keycode, record);
     notHandled      = update_move_hold_layer(&mhl_nav_state, _NAV, MHL_NAV, keycode, record);
 
     if (!notHandled) {
+        return false;
+    }
+
+    // Discard keys used to end a swapper
+    if (discard_swapper_key) {
         return false;
     }
 

@@ -93,6 +93,9 @@ for more options.
 // How many taps before triggering the toggle
 #define TAPPING_TOGGLE 2
 // Delay between register / unregister for a keycode
+#ifdef TAP_CODE_DELAY
+#    undef TAP_CODE_DELAY
+#endif
 #define TAP_CODE_DELAY 10
 
 // Control difference between a hold and a tap

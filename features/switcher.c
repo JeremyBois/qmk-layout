@@ -137,9 +137,7 @@ bool update_move_hold_layer(oneshot_state *state, uint16_t layer, uint16_t trigg
     if (keycode == trigger) {
         if (record->event.pressed) {
             // Trigger keydown
-            if (*state == os_up_unqueued) {
-                layer_move(layer);
-            }
+            layer_move(layer);
             *state = os_down_unused;
             return false;
         } else {
@@ -202,6 +200,7 @@ bool update_move_hold_layer(oneshot_state *state, uint16_t layer, uint16_t trigg
 bool update_active_hold_layer(oneshot_state *state, uint16_t layer, uint16_t trigger, uint16_t keycode, keyrecord_t *record) {
     if (keycode == trigger) {
         if (record->event.pressed) {
+            // Maybe better to use IS_LAYER_ON(layer) to be sure ??
             if (*state == os_up_queued || *state == os_up_queued_used) {
                 // Deactivate if active
                 layer_off(layer);

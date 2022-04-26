@@ -1,4 +1,4 @@
-# VIA keymap for Sofle
+# Keymap features
 
 Features:
 
@@ -62,6 +62,3 @@ Features:
   - caps lock (lower row)
   - adjust layer (lower row)
   - indicator LED for current layout
-
-
-## TODO

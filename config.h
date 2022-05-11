@@ -14,8 +14,11 @@ for more options.
 
 // Encoder resolution on both sides
 // https://github.com/qmk/qmk_firmware/blob/master/docs/feature_encoders.md
+#ifdef ENCODER_RESOLUTION
+#    undef ENCODER_RESOLUTION
+#endif
 #define ENCODER_RESOLUTIONS \
-    { 4, 2 }
+    { 2, 4 }
 
 // Handle RGB
 #ifdef RGBLIGHT_ENABLE

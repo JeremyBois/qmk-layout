@@ -13,10 +13,11 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         }
     } else if (index == 1) {
         // Scroll history
+        // Reversed direction on the right side
         if (clockwise) {
-            tap_code16(C(KC_Y));
+            tap_code16(C(A(KC_LEFT)));
         } else {
-            tap_code16(C(KC_Z));
+            tap_code16(C(A(KC_RIGHT)));
         }
     }
     return true;

@@ -130,6 +130,7 @@ _______, LGUI_T(C_Z), LALT_T(C_X), C_C, C_V, XXXXXXX, _______,
      * |      |  |   |  -   |  +   |  '   |   <   |-------.    ,-------|  [   |  {   |  (   |   ;  |   :  |      |
      * |------+------+------+------+------+-------|  MUTE |    |       |------+------+------+------+------+------|
      * |      |  ~   |  _   |  =   |  "   |   >   |-------|    |-------|  ]   |  }   |  )   |   ?  |   \  |      |
+     * |      | GUI  |  Alt |      |      |       |       |    |       |      |      |      | Alt  | Ralt |      |
      * `------------------------------------------/       /     \      \-----------------------------------------'
      *          |      |     |   NAV  | Space  | /  NUM  /       \ SYM  \ |  Enter |  DEF   |       |      |
      *          |      |     |   NAV  | Ctrl   |/  NUM  /         \ SYM  \|  Ctrl  |        |       |      |
@@ -138,8 +139,8 @@ _______, LGUI_T(C_Z), LALT_T(C_X), C_C, C_V, XXXXXXX, _______,
     [_SYM] = LAYOUT(
       _______, _______, _______, _______,  _______,  _______,                _______,  _______,  _______,  _______,  _______, _______,
       _______, C_GRV,     KC_AT, KC_HASH,   KC_DLR,  KC_PERC,                KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_EXLM, TO(_ADJUST), _______,
-      _______, KC_PIPE, KC_MINS, KC_PLUS,   C_QUOT,    KC_LT,                KC_LBRC,  KC_LCBR,  KC_LPRN,  KC_SCLN, KC_COLN, _______,
-      _______, C_TILD,  KC_UNDS,  KC_EQL,  C_DQUOT,    KC_GT, _______,   _______, KC_RBRC, KC_RCBR, KC_RPRN, KC_QUES,  KC_BSLS, _______,
+      _______, LSFT_T(KC_PIPE), KC_MINS, KC_PLUS,   C_QUOT,    KC_LT,                KC_LBRC,  KC_LCBR,  KC_LPRN,  KC_SCLN, LSFT_T(KC_COLN), _______,
+      _______, LGUI_T(C_TILD),  LALT_T(KC_UNDS),  KC_EQL,  C_DQUOT,    KC_GT, _______,   _______, KC_RBRC, KC_RCBR, KC_RPRN, LALT_T(KC_QUES),  RALT_T(KC_BSLS), _______,
                     _______, _______, _______, _______, _______,
                                                         _______, _______, _______, _______, _______
     ),
@@ -371,13 +372,20 @@ bool is_oneshot_ignored_key(uint16_t keycode) {
         case KC_LGUI:
         case KC_LSFT:
         // Allow modifier on one shot layer
-        // From numpad / nav layer
-        case LSFT_T(KC_0):
-        case LSFT_T(KC_9):
+        // User define keycode required special handling
         case LALT_T(C_X):
-        case LALT_T(KC_DOT):
         case LGUI_T(C_Z):
         case RALT_T(C_SLSH):
+        case LGUI_T(C_TILD):
+        // Non default required special handling
+        case LSFT_T(KC_0):
+        case LSFT_T(KC_9):
+        case LALT_T(KC_DOT):
+        case LALT_T(KC_QUES):
+        case LALT_T(KC_UNDS):
+        case RALT_T(KC_BSLS):
+        case LSFT_T(KC_COLN):
+        case LSFT_T(KC_PIPE):
             return true;
         default:
             return false;
@@ -441,6 +449,42 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
         case RALT_T(C_SLSH):
             if (record->tap.count && record->event.pressed) {
                 tap_code16(C(KC_SLSH)); // Send C(KC_SLSH) on tap
+                return false;
+            }
+            break;
+        case LGUI_T(C_TILD):
+            if (record->tap.count && record->event.pressed) {
+                tap_undead_key(S(KC_GRV)); // Send C(KC_SLSH) on tap
+                return false;
+            }
+            break;
+        case LALT_T(KC_QUES):
+            if (record->tap.count && record->event.pressed) {
+                tap_code16(KC_QUES); // Send C(KC_SLSH) on tap
+                return false;
+            }
+            break;
+        case LALT_T(KC_UNDS):
+            if (record->tap.count && record->event.pressed) {
+                tap_code16(KC_UNDS); // Send C(KC_SLSH) on tap
+                return false;
+            }
+            break;
+        case RALT_T(KC_BSLS):
+            if (record->tap.count && record->event.pressed) {
+                tap_code16(KC_BSLS); // Send C(KC_SLSH) on tap
+                return false;
+            }
+            break;
+        case LSFT_T(KC_COLN):
+            if (record->tap.count && record->event.pressed) {
+                tap_code16(KC_COLN); // Send C(KC_SLSH) on tap
+                return false;
+            }
+            break;
+        case LSFT_T(KC_PIPE):
+            if (record->tap.count && record->event.pressed) {
+                tap_code16(KC_PIPE); // Send C(KC_SLSH) on tap
                 return false;
             }
             break;
